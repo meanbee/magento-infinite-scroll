@@ -1,0 +1,6 @@
+app/code/community/Meanbee/InfiniteScroll app/code/community/Meanbee/InfiniteScroll
+app/design/frontend/base/default/layout/meanbee/infinitescroll.xml app/design/frontend/base/default/layout/meanbee/infinitescroll.xml
+app/design/frontend/base/default/template/meanbee/infinitescroll/ app/design/frontend/base/default/template/meanbee/infinitescroll/
+app/etc/modules/* app/etc/modules/
+js/meanbee/infinitescroll/ js/meanbee/infinitescroll/
+skin/frontend/base/default/meanbee/infinitescroll skin/frontend/base/default/meanbee/infinitescroll

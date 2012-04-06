@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout>
+    <catalog_category_view>
+        <reference name="head">
+            <action method="addJs"><name>meanbee/infinitescroll/base.js</name></action>
+            <action method="addItem"><type>skin_css</type><name>meanbee/infinitescroll/infinitescroll.css</name></action>
+        </reference>
+        <reference name="content">
+            <block type="infinitescroll/script" name="meanbee.infinitescroll.script" template="meanbee/infinitescroll/script.phtml" after="category.products" />
+        </reference>
+    </catalog_category_view>
+
+    <infinitescroll_ajax_fetch>
+        <update handle="catalog_category_view" />
+        <update handle="catalog_category_default" />
+        <update handle="catalog_category_layered" />
+    </infinitescroll_ajax_fetch>
+</layout>

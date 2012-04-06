@@ -1,0 +1,34 @@
+<?php /** @var $this Meanbee_InfiniteScroll_Block_Script */ ?>
+<script type="text/javascript">
+
+    document.observe("dom:loaded", function() {
+        new Meanbee_InfiniteScroll({
+            pager_selector: '<?php echo $this->getPagerSelector() ?>',
+            bottom_toolbar_selector: '<?php echo $this->getBottomToolbarSelector() ?>',
+            button_selector: '<?php echo $this->getButtonSelector() ?>',
+            busy_selector: '<?php echo $this->getBusySelector() ?>',
+            endpoint: '<?php echo $this->getEndpoint() ?>',
+            request_parameters: <?php echo $this->getRequestParametersJson() ?>,
+
+            autoscroll_enabled: <?php echo $this->isAutoscrollEnabled() ?>,
+            scroll_distance: <?php echo $this->getScrollDistance() ?>,
+
+            display_mode: '<?php echo $this->getCategoryDisplayMode() ?>',
+
+            grid_item_selector: '<?php echo $this->getGridItemSelector() ?>',
+            grid_container_selector: '<?php echo $this->getGridContainerSelector() ?>',
+            grid_container_action: '<?php echo $this->getGridContainerAction() ?>',
+
+            list_item_selector: '<?php echo $this->getListItemSelector() ?>',
+            list_container_selector: '<?php echo $this->getListContainerSelector() ?>',
+            list_container_action: '<?php echo $this->getListContainerAction() ?>'
+        });
+    });
+
+</script>
+
+<?php if ($this->hasMorePages()): ?>
+    <button class="meanbee-infinitescroll-button button"><span><span>Advance Infinite Scroll</span></span></button>
+<?php endif ?>
+
+<div class="meanbee-infinitescroll-busy" style="display: none"><img src="<?php echo $this->getSkinUrl('meanbee/infinitescroll/images/ajax_busy.gif') ?>" alt="Loading.." title="Loading.." /></div>
