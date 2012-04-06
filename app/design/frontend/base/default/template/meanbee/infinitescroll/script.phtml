@@ -27,7 +27,7 @@
 
 </script>
 
-<?php if ($this->hasMorePages()): ?>
+<?php if ($this->hasMorePages() && !$this->isAutoscrollEnabled()): ?>
     <button class="meanbee-infinitescroll-button button"><span><span>Advance Infinite Scroll</span></span></button>
 <?php endif ?>
 

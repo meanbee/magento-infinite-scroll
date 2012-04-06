@@ -5,15 +5,22 @@ var Meanbee_InfiniteScroll = Class.create({
             bottom_toolbar_selector: '.toolbar-bottom',
             button_selector: '.meanbee-infinitescroll-button',
             busy_selector: '.meanbee-infinitescroll-busy',
-            display_mode: 'grid',
-            grid_item_selector: '.item',
-            grid_container_selector: '.products-grid:last',
-            list_item_selector: '.item',
-            list_container_selector: '.products-grid:last',
+
             endpoint: false,
             request_parameters: {},
+
             autoscroll_enabled: true,
-            scroll_distance: 500
+            scroll_distance: 500,
+
+            display_mode: 'grid',
+
+            grid_item_selector: '.products-grid',
+            grid_container_selector: '.products-grid:last',
+            grid_container_action: 'after',
+
+            list_item_selector: '.item',
+            list_container_selector: '.products-list',
+            list_container_action: 'bottom'
         }, config);
 
         /** @TODO Override this value if 'p' appears in this.config.post_parameters **/

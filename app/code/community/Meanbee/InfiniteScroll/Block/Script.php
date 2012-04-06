@@ -1,11 +1,18 @@
 <?php
 class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
+    /**
+     * @return Meanbee_InfiniteScroll_Helper_Config
+     */
+    public function getConfig() {
+        return Mage::helper('infinitescroll/config');
+    }
+
     public function getPagerSelector() {
-        return '.pager';
+        return $this->getConfig()->getPagerSelector();
     }
 
     public function getBottomToolbarSelector() {
-        return '.toolbar-bottom';
+        return $this->getConfig()->getToolbarSelector();
     }
 
     public function getButtonSelector() {
@@ -17,31 +24,31 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
     }
 
     public function getGridItemSelector() {
-        return '.products-grid';
+        return $this->getConfig()->getGridItemSelector();
     }
 
     public function getGridContainerSelector() {
-        return '.products-grid:last';
+        return $this->getConfig()->getGridContainerSelector();
     }
 
     public function getGridContainerAction() {
-        return 'after';
+        return $this->getConfig()->getGridInsertionAction();
     }
 
     public function getListItemSelector() {
-        return '.item';
+        return $this->getConfig()->getListItemSelector();
     }
 
     public function getListContainerSelector() {
-        return '.products-list';
+        return $this->getConfig()->getListContainerSelector();
     }
 
     public function getListContainerAction() {
-        return 'bottom';
+        return $this->getConfig()->getListInsertionAction();
     }
 
     public function isAutoscrollEnabled() {
-        return true;
+        return $this->getConfig()->isAutoFetchEnabled();
     }
 
     public function getScrollDistance() {
@@ -64,5 +71,13 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
 
     public function hasMorePages() {
         return !$this->getLayout()->getBlock('product_list_toolbar_pager')->isLastPage();
+    }
+
+    protected function _toHtml() {
+        if ($this->getConfig()->isEnabled()) {
+            return parent::_toHtml();
+        } else {
+            return '';
+        }
     }
 }
