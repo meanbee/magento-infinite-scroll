@@ -76,7 +76,7 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
 
         if (Mage::registry('current_category')) {
             $action = 'category';
-        } else {
+        } else if (Mage::helper('infinitescroll')->hasLayoutHandle('catalogsearch_result_index')) {
             $action = 'search';
         }
 

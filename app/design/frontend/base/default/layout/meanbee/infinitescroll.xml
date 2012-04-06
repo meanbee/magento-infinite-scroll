@@ -7,7 +7,7 @@
     <catalogsearch_result_index>
         <update handle="infinitescroll" />
     </catalogsearch_result_index>
-    
+
     <infinitescroll>
         <reference name="head">
             <action method="addJs"><name>meanbee/infinitescroll/base.js</name></action>

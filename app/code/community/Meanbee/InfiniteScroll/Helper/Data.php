@@ -13,4 +13,14 @@ class Meanbee_InfiniteScroll_Helper_Data extends Mage_Core_Helper_Data {
 
         return false;
     }
+
+    public function hasLayoutHandle($handle_arg) {
+        foreach (Mage::app()->getLayout()->getUpdate()->getHandles() as $handle) {
+            if ($handle == $handle_arg) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
