@@ -56,7 +56,13 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
     }
 
     public function getCategoryDisplayMode() {
-        return $this->getLayout()->getBlock('product_list')->getMode();
+        $block = Mage::helper('infinitescroll')->getProductListBlock();
+
+       if ($block !== false) {
+           return $block->getMode();
+       }
+
+        Mage::throwException('Unable to locate product listing block');
     }
 
     public function getRequestParametersJson() {
@@ -66,7 +72,19 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
     }
 
     public function getEndpoint() {
-        return $this->getUrl('infinitescroll/ajax/fetch');
+        $action = false;
+
+        if (Mage::registry('current_category')) {
+            $action = 'category';
+        } else {
+            $action = 'search';
+        }
+
+        if ($action !== false) {
+            return $this->getUrl('infinitescroll/ajax/' . $action);
+        } else {
+            return false;
+        }
     }
 
     public function hasMorePages() {
