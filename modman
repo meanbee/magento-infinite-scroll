@@ -4,3 +4,4 @@ app/design/frontend/base/default/template/meanbee/infinitescroll/ app/design/fro
 app/etc/modules/* app/etc/modules/
 js/meanbee/infinitescroll/ js/meanbee/infinitescroll/
 skin/frontend/base/default/meanbee/infinitescroll skin/frontend/base/default/meanbee/infinitescroll
+Meanbee_InfiniteScroll.xml var/connect/Meanbee_InfiniteScroll.xml
