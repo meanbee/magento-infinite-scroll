@@ -10,7 +10,7 @@
             endpoint: '<?php echo $this->getEndpoint() ?>',
             request_parameters: <?php echo $this->getRequestParametersJson() ?>,
 
-            autoscroll_enabled: <?php echo $this->isAutoscrollEnabled() ?>,
+            autoscroll_enabled: <?php echo $this->isAutoscrollEnabled() ? 'true' : 'false' ?>,
             scroll_distance: <?php echo $this->getScrollDistance() ?>,
 
             display_mode: '<?php echo $this->getCategoryDisplayMode() ?>',
@@ -21,7 +21,9 @@
 
             list_item_selector: '<?php echo $this->getListItemSelector() ?>',
             list_container_selector: '<?php echo $this->getListContainerSelector() ?>',
-            list_container_action: '<?php echo $this->getListContainerAction() ?>'
+            list_container_action: '<?php echo $this->getListContainerAction() ?>',
+
+            on_last_page: <?php echo (!$this->hasMorePages()) ? 'true' : 'false' ?>
         });
     });
 

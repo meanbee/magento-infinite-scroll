@@ -20,13 +20,14 @@ var Meanbee_InfiniteScroll = Class.create({
 
             list_item_selector: '.item',
             list_container_selector: '.products-list',
-            list_container_action: 'bottom'
+            list_container_action: 'bottom',
+
+            on_last_page: false
         }, config);
 
         /** @TODO Override this value if 'p' appears in this.config.post_parameters **/
         this.page = 1;
 
-        this.hit_bottom = false;
         this.currently_fetching = false;
 
         this._hidePager();
@@ -69,7 +70,7 @@ var Meanbee_InfiniteScroll = Class.create({
 
         if (this.config.autoscroll_enabled) {
             Event.observe(window, "scroll", function() {
-                if (!this.hit_bottom) {
+                if (!this.config.on_last_page) {
                     var distance_from_bottom = $($$('html')[0]).getHeight() - document.viewport.getScrollOffsets()[1] - document.viewport.getHeight();
 
                     if (distance_from_bottom <= this.config.scroll_distance && !this.currently_fetching) {
@@ -120,7 +121,7 @@ var Meanbee_InfiniteScroll = Class.create({
                 var dom = new Element('div');
 
                 if (json.content.last) {
-                    this.hit_bottom = true;
+                    this.config.on_last_page = true;
                 } else {
                     this._showButton();
                 }
