@@ -25,8 +25,12 @@ var Meanbee_InfiniteScroll = Class.create({
             on_last_page: false
         }, config);
 
-        /** @TODO Override this value if 'p' appears in this.config.post_parameters **/
-        this.page = 1;
+        // If we've already got a page set, then use that as our starting page number.
+        if (this.config.request_parameters.p) {
+            this.page = this.config.request_parameters.p;
+        } else {
+            this.page = 1;
+        }
 
         this.currently_fetching = false;
 
