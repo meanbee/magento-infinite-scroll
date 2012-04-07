@@ -23,8 +23,9 @@
             list_container_selector: '<?php echo $this->getListContainerSelector() ?>',
             list_container_action: '<?php echo $this->getListContainerAction() ?>',
 
-            on_last_page: <?php echo (!$this->hasMorePages()) ? 'true' : 'false' ?>
-        });
+            on_last_page: <?php echo (!$this->hasMorePages()) ? 'true' : 'false' ?>,
+            cookie_key: '<?php echo $this->getCookieKey() ?>'
+        }, new Meanbee_InfiniteScroll_Cache(<?php echo Meanbee_InfiniteScroll_Helper_Cache::CACHE_LIFETIME ?>));
     });
 
 </script>

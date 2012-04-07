@@ -15,6 +15,8 @@ class Meanbee_InfiniteScroll_AjaxController extends Mage_Core_Controller_Front_A
             $return['content'] = 'No category provided';
         }
 
+        $this->_setCookie('category', $this->getRequest()->getParam('p', 1));
+
         $this->getResponse()->setHeader('Content-Type', 'application/json', true)->setBody(Mage::helper('core')->jsonEncode($return));
     }
 
@@ -44,10 +46,26 @@ class Meanbee_InfiniteScroll_AjaxController extends Mage_Core_Controller_Front_A
     }
 
     protected function _getProductListBlock() {
-        return Mage::helper('infinitescroll')->getProductListBlock();
+        return $this->_getHelper()->getProductListBlock();
     }
 
     protected function _getToolbarBlock() {
         return $this->getLayout()->getBlock('product_list_toolbar_pager');
+    }
+
+    protected function _setCookie($key, $value) {
+        /** @var $cookie Mage_Core_Model_Cookie */
+        $cookie = Mage::getSingleton('core/cookie');
+        $cookie->set(
+            $this->_getHelper()->getCookieKey(Mage::getModel('core/url')->getUrl('*/*/' . $key), $this->getRequest()->getParams()),
+            $value, null, null, null, null, false
+        );
+    }
+
+    /**
+     * @return Meanbee_InfiniteScroll_Helper_Data
+     */
+    protected function _getHelper() {
+        return Mage::helper('infinitescroll');
     }
 }

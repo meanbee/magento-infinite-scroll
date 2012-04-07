@@ -10,6 +10,7 @@
 
     <infinitescroll>
         <reference name="head">
+            <action method="addJs"><name>meanbee/infinitescroll/jstorage.js</name></action>
             <action method="addJs"><name>meanbee/infinitescroll/base.js</name></action>
             <action method="addItem"><type>skin_css</type><name>meanbee/infinitescroll/infinitescroll.css</name></action>
         </reference>

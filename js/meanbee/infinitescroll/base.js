@@ -1,5 +1,5 @@
 var Meanbee_InfiniteScroll = Class.create({
-    initialize: function (config) {
+    initialize: function (config, cache) {
         this.config = Object.extend({
             pager_selector: '.pager',
             bottom_toolbar_selector: '.toolbar-bottom',
@@ -22,8 +22,11 @@ var Meanbee_InfiniteScroll = Class.create({
             list_container_selector: '.products-list',
             list_container_action: 'bottom',
 
-            on_last_page: false
+            on_last_page: false,
+            cookie_key: ''
         }, config);
+
+        this.cache = cache;
 
         // If we've already got a page set, then use that as our starting page number.
         if (this.config.request_parameters.p) {
@@ -38,6 +41,19 @@ var Meanbee_InfiniteScroll = Class.create({
         this._hideBottomToolbar();
 
         this._attachEvents();
+
+        var cookie_page = this._getCookieValue();
+        if (cookie_page) {
+            var fetch_recursive = function (i) {
+                if (i > 0) {
+                    this._fetch(2 + cookie_page - i, function () {
+                        fetch_recursive(--i);
+                    });
+                } else {
+                    this.page = cookie_page;
+                }
+            }
+        }
     },
 
     _hidePager: function () {
@@ -68,7 +84,7 @@ var Meanbee_InfiniteScroll = Class.create({
         $$(this.config.button_selector).each(function (el) {
             $(el).observe('click', function (e) {
                 Event.stop(e);
-                this._fetch();
+                this._fetch(++this.page);
             }.bind(this))
         }.bind(this));
 
@@ -78,7 +94,7 @@ var Meanbee_InfiniteScroll = Class.create({
                     var distance_from_bottom = $($$('html')[0]).getHeight() - document.viewport.getScrollOffsets()[1] - document.viewport.getHeight();
 
                     if (distance_from_bottom <= this.config.scroll_distance && !this.currently_fetching) {
-                        this._fetch();
+                        this._fetch(++this.page);
                     }
                 }
             }.bind(this));
@@ -109,48 +125,90 @@ var Meanbee_InfiniteScroll = Class.create({
         }
     },
 
-    _fetch: function () {
+    _fetch: function (page, completed_callback) {
         var post_parameters = Object.extend(this.config.request_parameters, {
-            p: ++this.page
+            p: page
         })
 
         this.currently_fetching = true;
         this._hideButton();
         this._showBusy();
 
-        new Ajax.Request(this.config.endpoint, {
-            postBody: Object.toQueryString(post_parameters),
-            onSuccess: function(response) {
-                var json = response.responseJSON;
-                var dom = new Element('div');
+        var cache_value = this.cache.get(this._getCacheKey());
+        if (!cache_value) {
+            new Ajax.Request(this.config.endpoint, {
+                postBody: Object.toQueryString(post_parameters),
+                onSuccess: function(response) {
+                    var json = response.responseJSON;
+                    this._insertIntoDOM(json, completed_callback);
+                    this.cache.set(this._getCacheKey(), json);
+                }.bind(this)
+            });
+        } else {
+            this._insertIntoDOM(cache_value, completed_callback);
+        }
+    },
 
-                if (json.content.last) {
-                    this.config.on_last_page = true;
-                } else {
-                    this._showButton();
-                }
+    _insertIntoDOM: function (json, completed_callback) {
+        var dom = new Element('div');
 
-                var item_selector = this._getItemSelector();
+        if (json.content.last) {
+            this.config.on_last_page = true;
+        } else {
+            this._showButton();
+        }
 
-                dom.update(json.content.block);
-                dom.select(item_selector).each(function (el) {
-                    var container_selector = this._getContainerSelector();
-                    var container_action = this._getContainerAction();
+        var item_selector = this._getItemSelector();
 
-                    var container = $$(container_selector);
+        dom.update(json.content.block);
+        dom.select(item_selector).each(function (el) {
+            var container_selector = this._getContainerSelector();
+            var container_action = this._getContainerAction();
 
-                    if (container.length >= 1) {
-                        var insert_config = {};
+            var container = $$(container_selector);
 
-                        insert_config[container_action] = $(el);
+            if (container.length >= 1) {
+                var insert_config = {};
 
-                        $(container[0]).insert(insert_config);
-                    }
-                }.bind(this))
+                insert_config[container_action] = $(el);
 
-                this.currently_fetching = false;
-                this._hideBusy();
-            }.bind(this)
-        });
+                $(container[0]).insert(insert_config);
+            }
+        }.bind(this))
+
+        this.currently_fetching = false;
+        this._hideBusy();
+
+        if (typeof(completed_callback) != 'undefined') {
+            completed_callback();
+        }
+    },
+
+    _getCookieValue: function () {
+        return Mage.Cookies.get(this.config.cookie_key);
+    },
+
+    _getCacheKey: function () {
+        return this.config.cookie_key + '/' + this.page;
+    }
+});
+
+/**
+ * jStorage wrapper
+ */
+var Meanbee_InfiniteScroll_Cache = Class.create({
+    initialize: function(ttl) {
+        this.ttl = ttl;
+    },
+
+    set: function (key, value) {
+        $.jStorage.set(key, value);
+
+        /** Set a TTL of an hour **/
+        $.jStorage.setTTL(key, 1000 * this.ttl);
+    },
+
+    get: function (key) {
+        return $.jStorage.get(key);
     }
 });

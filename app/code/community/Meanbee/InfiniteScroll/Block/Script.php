@@ -87,6 +87,10 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
         }
     }
 
+    public function getCookieKey() {
+        return Mage::helper('infinitescroll')->getCookieKey($this->getEndpoint(), $this->getRequest()->getParams());
+    }
+
     public function hasMorePages() {
         return !$this->getLayout()->getBlock('product_list_toolbar_pager')->isLastPage();
     }

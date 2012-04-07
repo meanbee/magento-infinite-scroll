@@ -23,4 +23,13 @@ class Meanbee_InfiniteScroll_Helper_Data extends Mage_Core_Helper_Data {
 
         return false;
     }
+
+    public function getCookieKey($endpoint, $parameters) {
+        /** @var $cache Meanbee_InfiniteScroll_Helper_Cache */
+        $cache = Mage::helper('infinitescroll/cache');
+
+        return 'meanbee_infinitescroll/' . $cache->getCacheBuildTimestamp() . '/' . md5($endpoint . Mage::helper('core')->jsonEncode(
+            $parameters
+        ));
+    }
 }
