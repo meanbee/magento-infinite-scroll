@@ -81,7 +81,8 @@
                         </grid_container>
                         <grid_action>
                             <label>Item Insertion Rule (Grid Layout)</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>select</frontend_type>
+                            <source_model>infinitescroll/source_config_alignment</source_model>
                             <sort_order>50</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -105,7 +106,8 @@
                         </list_container>
                         <list_action>
                             <label>Item Insertion Rule (List Layout)</label>
-                            <frontend_type>text</frontend_type>
+                            <frontend_type>select</frontend_type>
+                            <source_model>infinitescroll/source_config_alignment</source_model>
                             <sort_order>80</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
