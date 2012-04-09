@@ -76,6 +76,7 @@
             </display>
             <css_selector>
                 <pager><![CDATA[.pager]]></pager>
+                <toolbar_top><![CDATA[.toolbar:first]]></toolbar_top>
                 <toolbar_bottom><![CDATA[.toolbar-bottom]]></toolbar_bottom>
                 <grid_item><![CDATA[.products-grid]]></grid_item>
                 <grid_container><![CDATA[.products-grid:last]]></grid_container>

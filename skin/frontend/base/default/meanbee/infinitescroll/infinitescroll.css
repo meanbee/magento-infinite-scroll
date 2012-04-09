@@ -2,3 +2,9 @@
     padding: 20px;
     text-align: center;
 }
+
+.meanbee-infinitescroll-showall {
+    text-align: right;
+    display: block;
+    width: 100%;
+}

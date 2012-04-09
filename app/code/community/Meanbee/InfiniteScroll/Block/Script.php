@@ -11,8 +11,12 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
         return $this->getConfig()->getPagerSelector();
     }
 
+    public function getTopToolbarSelector() {
+        return $this->getConfig()->getTopToolbarSelector();
+    }
+
     public function getBottomToolbarSelector() {
-        return $this->getConfig()->getToolbarSelector();
+        return $this->getConfig()->getBottomtToolbarSelector();
     }
 
     public function getButtonSelector() {
@@ -85,6 +89,14 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
         } else {
             return false;
         }
+    }
+
+    public function isShowAllEnabled() {
+        return $this->getConfig()->isShowAllLinkEnabled();
+    }
+
+    public function getShowAllUrl() {
+        return $this->getLayout()->getBlock('product_list_toolbar_pager')->getLimitUrl('all');
     }
 
     public function getCookieKey() {

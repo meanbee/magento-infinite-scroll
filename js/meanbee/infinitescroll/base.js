@@ -2,9 +2,14 @@ var Meanbee_InfiniteScroll = Class.create({
     initialize: function (config, cache) {
         this.config = Object.extend({
             pager_selector: '.pager',
+            top_toolbar_selector: '.toolbar',
             bottom_toolbar_selector: '.toolbar-bottom',
             button_selector: '.meanbee-infinitescroll-button',
             busy_selector: '.meanbee-infinitescroll-busy',
+
+            showall_enabled: false,
+            showall_link: false,
+            showall_text: 'Show all products',
 
             endpoint: false,
             request_parameters: {},
@@ -37,6 +42,10 @@ var Meanbee_InfiniteScroll = Class.create({
 
         this.currently_fetching = false;
 
+        if (this.config.showall_enabled) {
+            this._addShowAllLink();
+        }
+
         this._hidePager();
         this._hideBottomToolbar();
 
@@ -62,6 +71,17 @@ var Meanbee_InfiniteScroll = Class.create({
 
     _hideBottomToolbar: function () {
         $$(this.config.bottom_toolbar_selector).invoke('hide');
+    },
+
+    _addShowAllLink: function () {
+        $$(this.config.top_toolbar_selector).each(function (el) {
+            $(el).insert({
+                bottom: new Element('a', {
+                    href: this.config.showall_link,
+                    class: 'meanbee-infinitescroll-showall'
+                }).update(this.config.showall_text)
+            });
+        }.bind(this));
     },
 
     _hideButton: function () {

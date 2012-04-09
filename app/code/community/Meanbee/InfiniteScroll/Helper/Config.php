@@ -4,7 +4,8 @@ class Meanbee_InfiniteScroll_Helper_Config extends Mage_Core_Helper_Abstract {
     const XML_AUTO_FETCH = 'infinitescroll/display/auto_scroll';
 
     const XML_CSS_PAGER = 'infinitescroll/css_selector/pager';
-    const XML_CSS_TOOLBAR = 'infinitescroll/css_selector/toolbar_bottom';
+    const XML_CSS_TOOLBAR_TOP = 'infinitescroll/css_selector/toolbar_top';
+    const XML_CSS_TOOLBAR_BOTTOM = 'infinitescroll/css_selector/toolbar_bottom';
 
     const XML_CSS_LIST_ITEM = 'infinitescroll/css_selector/list_item';
     const XML_CSS_LIST_CONTAINER = 'infinitescroll/css_selector/list_container';
@@ -13,6 +14,8 @@ class Meanbee_InfiniteScroll_Helper_Config extends Mage_Core_Helper_Abstract {
     const XML_CSS_GRID_ITEM = 'infinitescroll/css_selector/grid_item';
     const XML_CSS_GRID_CONTAINER = 'infinitescroll/css_selector/grid_container';
     const XML_CSS_GRID_ACTION = 'infinitescroll/css_selector/grid_action';
+
+    const XML_CORE_SHOW_ALL_ENABLED = 'catalog/frontend/list_allow_all';
 
     public function isEnabled() {
         return $this->_getConfigFlag(self::XML_ENABLED);
@@ -26,8 +29,12 @@ class Meanbee_InfiniteScroll_Helper_Config extends Mage_Core_Helper_Abstract {
         return $this->_getConfigValue(self::XML_CSS_PAGER);
     }
 
-    public function getToolbarSelector() {
-        return $this->_getConfigValue(self::XML_CSS_TOOLBAR);
+    public function getBottomtToolbarSelector() {
+        return $this->_getConfigValue(self::XML_CSS_TOOLBAR_BOTTOM);
+    }
+
+    public function getTopToolbarSelector() {
+        return $this->_getConfigValue(self::XML_CSS_TOOLBAR_TOP);
     }
 
     public function getListItemSelector() {
@@ -52,6 +59,10 @@ class Meanbee_InfiniteScroll_Helper_Config extends Mage_Core_Helper_Abstract {
 
     public function getGridInsertionAction() {
         return $this->_getConfigValue(self::XML_CSS_GRID_ACTION);
+    }
+
+    public function isShowAllLinkEnabled() {
+        return $this->_getConfigFlag(self::XML_CORE_SHOW_ALL_ENABLED);
     }
 
     /**
