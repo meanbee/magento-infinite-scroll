@@ -1,12 +1,12 @@
 <_>
-   <form_key>VwZkiHfZSBz4iEeQ</form_key>
+   <form_key>7T0wxPUqhxZZwGKM</form_key>
    <name>Meanbee_InfiniteScroll</name>
    <channel>community</channel>
    <version_ids>
-      <version_ids>2</version_ids>
+      <version_ids>1</version_ids>
    </version_ids>
-   <summary>Add infinite scrolling to the product listing page and simple search results page</summary>
-   <description>Add infinite scrolling to the product listing page and simple search results page</description>
+   <summary>Add infinite scrolling to the product listing page and simple search results page.</summary>
+   <description>Add infinite scrolling to the product listing page and simple search results page.</description>
    <license>Commercial License</license>
    <license_uri/>
    <version>1.0.0</version>
@@ -40,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files> </files>
+            <files>   </files>
          </files>
       </package>
       <extension>
