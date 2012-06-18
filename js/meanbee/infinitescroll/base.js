@@ -78,7 +78,7 @@ var Meanbee_InfiniteScroll = Class.create({
             $(el).insert({
                 bottom: new Element('a', {
                     href: this.config.showall_link,
-                    class: 'meanbee-infinitescroll-showall'
+                    'class': 'meanbee-infinitescroll-showall'
                 }).update(this.config.showall_text)
             });
         }.bind(this));
