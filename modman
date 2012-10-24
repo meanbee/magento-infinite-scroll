@@ -1,3 +1,8 @@
+# Name: Meanbee_InfiniteScroll
+# Summary: This is my summary
+# Description: This is my description
+# Version: 1.0.1
+
 app/code/community/Meanbee/InfiniteScroll app/code/community/Meanbee/InfiniteScroll
 app/design/frontend/base/default/layout/meanbee/infinitescroll.xml app/design/frontend/base/default/layout/meanbee/infinitescroll.xml
 app/design/frontend/base/default/template/meanbee/infinitescroll/ app/design/frontend/base/default/template/meanbee/infinitescroll/

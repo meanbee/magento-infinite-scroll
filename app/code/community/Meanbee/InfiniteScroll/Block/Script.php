@@ -59,12 +59,25 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
         return 500;
     }
 
-    public function getCategoryDisplayMode() {
+    public function isScrollablePage() {
+        /** @var $block Mage_Catalog_Block_Product_List */
         $block = Mage::helper('infinitescroll')->getProductListBlock();
 
-       if ($block !== false) {
-           return $block->getMode();
-       }
+        return (
+            $block !== false &&
+            $block->getChild('toolbar') !== false &&
+            $this->_getPagerBlock() !== false &&
+            $this->_getPagerBlock()->getCollection()
+        );
+    }
+
+    public function getCategoryDisplayMode() {
+        /** @var $block Mage_Catalog_Block_Product_List */
+        $block = Mage::helper('infinitescroll')->getProductListBlock();
+
+        if ($block !== false && $block->getChild('toolbar') !== false) {
+            return $block->getMode();
+        }
 
         Mage::throwException('Unable to locate product listing block');
     }
@@ -96,7 +109,7 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
     }
 
     public function getShowAllUrl() {
-        return $this->getLayout()->getBlock('product_list_toolbar_pager')->getLimitUrl('all');
+        return $this->_getPagerBlock()->getLimitUrl('all');
     }
 
     public function getCookieKey() {
@@ -104,7 +117,14 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
     }
 
     public function hasMorePages() {
-        return !$this->getLayout()->getBlock('product_list_toolbar_pager')->isLastPage();
+        return !$this->_getPagerBlock()->isLastPage();
+    }
+
+    /**
+     * @return Mage_Page_Block_Html_Pager
+     */
+    protected function _getPagerBlock() {
+        return $this->getLayout()->getBlock('product_list_toolbar_pager');
     }
 
     protected function _toHtml() {
