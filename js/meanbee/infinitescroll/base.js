@@ -75,11 +75,14 @@ var Meanbee_InfiniteScroll = Class.create({
 
     _addShowAllLink: function () {
         $$(this.config.top_toolbar_selector).each(function (el) {
+            var show_all = new Element('a', {
+                href: this.config.showall_link,
+            });
+            show_all.addClassName('meanbee-infinitescroll-showall');
+            show_all.update(this.config.showall_text);
+
             $(el).insert({
-                bottom: new Element('a', {
-                    href: this.config.showall_link,
-                    class: 'meanbee-infinitescroll-showall'
-                }).update(this.config.showall_text)
+                bottom: show_all
             });
         }.bind(this));
     },
