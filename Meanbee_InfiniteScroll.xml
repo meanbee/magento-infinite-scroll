@@ -1,5 +1,5 @@
 <_>
-   <form_key>bspMuOebojxWuytt</form_key>
+   <form_key>S8G06kYrrB4bHwNq</form_key>
    <name>Meanbee_InfiniteScroll</name>
    <channel>community</channel>
    <version_ids>
@@ -9,9 +9,9 @@
    <description>Add infinite scrolling to the product listing page and simple search results page.</description>
    <license>Commercial License</license>
    <license_uri/>
-   <version>1.0.1</version>
+   <version>1.0.3</version>
    <stability>stable</stability>
-   <notes>Update the jStorage library to support Prototype and jQuery being on the page.</notes>
+   <notes>Fix for multiple currencies. </notes>
    <authors>
       <name>
          <name>Meanbee</name>
@@ -40,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files>      </files>
+            <files>              </files>
          </files>
       </package>
       <extension>
