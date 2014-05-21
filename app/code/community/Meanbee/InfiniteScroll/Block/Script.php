@@ -98,7 +98,8 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
         }
 
         if ($action !== false) {
-            return $this->getUrl('infinitescroll/ajax/' . $action);
+            $url = $this->getUrl('infinitescroll/ajax/' . $action);
+            return preg_replace('/^https?:/', '', $url);
         } else {
             return false;
         }
