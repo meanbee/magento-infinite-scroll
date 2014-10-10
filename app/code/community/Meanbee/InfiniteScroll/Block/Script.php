@@ -89,19 +89,7 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
     }
 
     public function getEndpoint() {
-        $action = false;
-
-        if (Mage::registry('current_category')) {
-            $action = 'category';
-        } else if (Mage::helper('infinitescroll')->hasLayoutHandle('catalogsearch_result_index')) {
-            $action = 'search';
-        }
-
-        if ($action !== false) {
-            return $this->getUrl('infinitescroll/ajax/' . $action);
-        } else {
-            return false;
-        }
+        return Mage::helper('infinitescroll')->getEndpoint();
     }
 
     public function isShowAllEnabled() {

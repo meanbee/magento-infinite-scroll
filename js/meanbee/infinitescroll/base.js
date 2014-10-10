@@ -54,14 +54,18 @@ var Meanbee_InfiniteScroll = Class.create({
         var cookie_page = this._getCookieValue();
         if (cookie_page) {
             var fetch_recursive = function (i) {
-                if (i > 0) {
+                // This needs to be set to 1. Previously, it was set to 0 which was causing an additional page to be requested
+                // each time this piece of code ran, so every time you returned you'd be getting an additional page of products.
+                if (i > 1) {
                     this._fetch(2 + cookie_page - i, function () {
                         fetch_recursive(--i);
                     });
                 } else {
                     this.page = cookie_page;
                 }
-            }
+            }.bind(this);
+
+            fetch_recursive(cookie_page);
         }
     },
 
@@ -157,7 +161,7 @@ var Meanbee_InfiniteScroll = Class.create({
         this._hideButton();
         this._showBusy();
 
-        var cache_value = this.cache.get(this._getCacheKey());
+        var cache_value = this.cache.get(this._getCacheKey(page));
         if (!cache_value) {
             new Ajax.Request(this.config.endpoint, {
                 postBody: Object.toQueryString(post_parameters),
@@ -208,11 +212,14 @@ var Meanbee_InfiniteScroll = Class.create({
     },
 
     _getCookieValue: function () {
-        return Mage.Cookies.get(this.config.cookie_key);
+        return parseInt(Mage.Cookies.get(this.config.cookie_key));
     },
 
-    _getCacheKey: function () {
-        return this.config.cookie_key + '/' + this.page;
+    _getCacheKey: function (page) {
+        if (page == undefined) {
+            page = this.page;
+        }
+        return this.config.cookie_key + '/' + page;
     }
 });
 
