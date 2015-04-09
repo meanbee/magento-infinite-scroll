@@ -12,9 +12,10 @@ class Meanbee_InfiniteScroll_Model_Observer {
         $request = $observer->getAction()->getRequest();
         /** @var Mage_Core_Model_Layout $layout */
         $layout = $observer->getLayout();
+        $handles = $layout->getUpdate()->getHandles();
         /** @var Mage_Page_Block_Html_Head $head_block */
         $head_block = $layout->getBlock('head');
-        if(!$head_block instanceof Mage_Core_Block_Template) {
+        if(!$helper->isInfiniteScrollAvailable($head_block, $handles)) {
             return;
         }
         if($helper->isNextUrlAvailable($request)) {

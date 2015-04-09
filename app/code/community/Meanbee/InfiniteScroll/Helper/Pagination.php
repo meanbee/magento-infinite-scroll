@@ -120,4 +120,15 @@ class Meanbee_InfiniteScroll_Helper_Pagination extends Mage_Core_Helper_Abstract
         return $params;
     }
 
+    /**
+     * @param $head_block
+     * @param $handles
+     *
+     * @return bool
+     */
+    public function isInfiniteScrollAvailable($head_block, $handles)
+    {
+        return $head_block instanceof Mage_Core_Block_Template && in_array('infinitescroll', $handles);
+    }
+
 }
