@@ -115,8 +115,15 @@ class Meanbee_InfiniteScroll_Block_Script extends Mage_Core_Block_Template {
         return $this->getLayout()->getBlock('product_list_toolbar_pager');
     }
 
+    /**
+     * Check Infinite Scroll is enabled.
+     * Check The Browser is not using pagination.
+     *
+     * @return string
+     * @throws Exception
+     */
     protected function _toHtml() {
-        if ($this->getConfig()->isEnabled()) {
+        if ($this->getConfig()->isEnabled() && !$this->getRequest()->getParam('p')) {
             return parent::_toHtml();
         } else {
             return '';
