@@ -39,6 +39,17 @@
                 </args>
             </infinitescroll>
         </routers>
+        <events>
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <meanbee_infinitescroll>
+                        <type>singleton</type>
+                        <class>Meanbee_InfiniteScroll_Model_Observer</class>
+                        <method>addPaginationTags</method>
+                    </meanbee_infinitescroll>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+        </events>
     </frontend>
     <adminhtml>
         <acl>

@@ -57,7 +57,7 @@ class Meanbee_InfiniteScroll_AjaxController extends Mage_Core_Controller_Front_A
         /** @var $cookie Mage_Core_Model_Cookie */
         $cookie = Mage::getSingleton('core/cookie');
         $cookie->set(
-            $this->_getHelper()->getCookieKey(Mage::getModel('core/url')->getUrl('*/*/' . $key), $this->getRequest()->getParams()),
+            $this->_getHelper()->getCookieKey(Mage::helper('infinitescroll')->getEndpoint(), $this->getRequest()->getParams()),
             $value, null, null, null, null, false
         );
     }
